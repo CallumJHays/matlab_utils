@@ -1,0 +1,37 @@
+********************************
+* Copyright:                   *
+* Vishay Intertechnology, Inc. *
+********************************
+* BZX55C5V1			
+
+* Technology:        DISCRETE DEVICE			
+* Device:            Zener Diode BZX 55C 5V1			
+* Type:              Typical (nom)			
+* Model established: 12.11.1996, by S.Reuter, TM1iC63-HN			
+* Wafer:			
+* Remarks:           Macro model			
+* Revision:			
+* Simulator:         PSPICE			
+
+.SUBCKT BZX5V1 a c			
+
+ DF a c DFOR			
+ DR c a DREV			
+ DB b a DBRE			
+ EB c b POLY(1) d 0 3.6 1
+ IB 0 d 1m
+ RB 0 d 1k TC=3m
+
+.MODEL DFOR D
+ + IS =   1p  RS =  3.5  N  =  1.4  CJO= 178p
+ + VJ = 610m  M  = 335m  FC = 700m  XTI=    3
+ + EG =1.186
+
+.MODEL DREV D
+ + IS = 100f  N  =   30  XTI=    3  EG =1.186
+
+.MODEL DBRE D
+ + IS =  10f  RS =    6  N  =    1  XTI=    0
+ + EG =1.186
+
+.ENDS BZX5V1			

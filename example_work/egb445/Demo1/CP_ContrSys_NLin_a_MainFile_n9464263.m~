@@ -1,0 +1,34 @@
+%% Calculate control parameters from EPa
+
+x_bar_a = [0 0 0 0]';
+[A, B, C, D, K, L] = nonlinear_dynamics(x_bar_a);
+
+x0 = [0.2 20*pi/180 0 0]';
+
+%% simulate both
+
+step_size = '0.2';
+t_final = 5;
+
+l = sim('CP_ContrSys_Lin_a_n9464263', 'TimeOut', t_final, 'FixedStep', step_size);
+nl = sim('CP_ContrSys_NLin_a_n9464263', 'TimeOut', t_final, 'FixedStep', step_size);
+
+%% plot the results
+z = zeros(
+plot_dynamics('Design Using Linearisation around EPa', ...
+    nl.t, nl.F, nl.x, nl.x_hat, l.F, l.x, l.x_hat)
+
+% plot_dynamics('Design Using Linearisation around EPa', ...
+%     nl.t, nl.F, nl.x, nl.x_hat, l.F, l.x, l.x_hat)
+
+%% Show the cart animations
+
+% Cart_Pendulum_Animation(out.tout, ...
+%     nl.x(:, 1), nl.x(:, 2), ...
+%     x_bar_a(1), x_bar_a(2), ...
+%     'CP_ContrSys_NLin_a_n9464263.avi')
+% 
+% Cart_Pendulum_Animation(out.tout, ...
+%     nl.x(:, 1), nl.x(:, 2), ...
+%     x_bar_a(1), x_bar_a(2), ...
+%     'CP_ContrSys_Lin_a_n9464263.avi')
